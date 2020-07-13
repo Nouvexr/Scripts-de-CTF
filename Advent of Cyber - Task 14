@@ -1,0 +1,29 @@
+import requests
+import json
+ 
+host = 'http://10.10.169.100:3000/'
+next_page = ''
+key = ''
+data = []
+ 
+while(True):
+    response = requests.get(host + next_page)
+    response_status = response.status_code
+    data = response.json()
+ 
+    if response_status != 200:
+        break
+ 
+    if 'value' in data:
+        if data['value'] == 'end':
+            break
+        key += data['value']
+ 
+    if 'next' in data:
+        if data['next'] == 'end':
+            break
+        next_page = data['next']
+ 
+    print(f"[{response_status}] {data}")
+ 
+print(f'key: "{key}"')
