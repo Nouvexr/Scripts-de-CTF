@@ -1,0 +1,13 @@
+#!/usr/bin/python3
+
+import json
+import base64
+from des import *
+
+try:
+        hash = str(input("hash: "))
+        hash = base64.b64decode(hash.encode('utf-8'))
+        key = DesKey(b"7ly6UznJ")
+        print("decrypt: " + key.decrypt(hash,initial=b"XuVUm5fR",padding=True).decode('utf-8'))
+except:
+        print("NO!")
